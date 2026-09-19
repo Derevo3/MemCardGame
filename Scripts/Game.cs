@@ -336,13 +336,13 @@ public class Game : MonoBehaviour
 
     public void Start()
     {
-        //CreateDeck();
-        //CreateHandPlayers();
         //Debug.Log(string.Join(", ", listMem));*/
     }
 
     void Update ()
     {
+        CreateDeck();
+        CreateHandPlayers();
         switch(55 - numberPlayer) // Игроки выбирают свой мем
         {
             case 55:
@@ -403,7 +403,5 @@ public class Game : MonoBehaviour
             finalScore.Add(scorePlayer4);
             Debug.Log(string.Join(", ", finalScore));
         }
-
-
     }
 }
