@@ -4,6 +4,7 @@ using System;
 using SysRandom = System.Random;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
+using UnityEditor.ShaderKeywordFilter;
 
 public static class ListExtensions
 {
@@ -37,20 +38,17 @@ public class Game : MonoBehaviour
     int countMem = 40;
     void CreateDeck()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        for (int i = 0; i < countMem + 1; i++)
         {
-            for (int i = 0; i < countMem + 1; i++)
-            {
-                listMem.Add(i);
-            }
-            listMem.Shuffle(); // Метод для перемешивания значений в listMem
-            Debug.Log(string.Join(", ", listMem)); //Вывод значений listMem в строку
-            for (int i = 0; i < 41; i++)
-            {
-                listSituation.Add(i);
-            }
-            listSituation.Shuffle();
+            listMem.Add(i);
         }
+        listMem.Shuffle(); // Метод для перемешивания значений в listMem
+        Debug.Log(string.Join(", ", listMem)); //Вывод значений listMem в строку
+        for (int i = 0; i < 41; i++)
+        {
+            listSituation.Add(i);
+        }
+        listSituation.Shuffle();
     }
     
     // Раздача игрокам карт
@@ -59,42 +57,39 @@ public class Game : MonoBehaviour
     List <int> handPlayer3 = new ();
     List <int> handPlayer4 = new ();
     void CreateHandPlayers()
-    { 
-        if (Input.GetKeyDown(KeyCode.X))
+    {
+        for (int i = 0; i < 5; i++)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                int card = listMem[countMem];
-                handPlayer1.Add(card);
-                listMem.RemoveAt(countMem);
-                countMem--;
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                int card = listMem[countMem];
-                handPlayer2.Add(card);
-                listMem.RemoveAt(countMem);
-                countMem--;
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                int card = listMem[countMem];
-                handPlayer3.Add(card);
-                listMem.RemoveAt(countMem);
-                countMem--;
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                int card = listMem[countMem];
-                handPlayer4.Add(card);
-                listMem.RemoveAt(countMem);
-                countMem--;
-            }
-            Debug.Log(string.Join(", ", handPlayer1));
-            Debug.Log(string.Join(", ", handPlayer2));
-            Debug.Log(string.Join(", ", handPlayer3));
-            Debug.Log(string.Join(", ", handPlayer4));
+            int card = listMem[countMem];
+            handPlayer1.Add(card);
+            listMem.RemoveAt(countMem);
+            countMem--;
         }
+        for (int i = 0; i < 5; i++)
+        {
+            int card = listMem[countMem];
+            handPlayer2.Add(card);
+            listMem.RemoveAt(countMem);
+            countMem--;
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            int card = listMem[countMem];
+            handPlayer3.Add(card);
+            listMem.RemoveAt(countMem);
+            countMem--;
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            int card = listMem[countMem];
+            handPlayer4.Add(card);
+            listMem.RemoveAt(countMem);
+            countMem--;
+        }
+        Debug.Log(string.Join(", ", handPlayer1));
+        Debug.Log(string.Join(", ", handPlayer2));
+        Debug.Log(string.Join(", ", handPlayer3));
+        Debug.Log(string.Join(", ", handPlayer4));
     }
 
     // Выбор игроком карты мема
@@ -105,154 +100,150 @@ public class Game : MonoBehaviour
     int cardPlayer4 = 0;
     void DrawCardPlayer1()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        void PlayCard()
         {
-            cardPlayer1 = 1;
             numberPlayer++;
             tableMem.Add(handPlayer1[cardPlayer1]);
             Debug.Log(tableMem [0]);
+            handPlayer1.RemoveAt(cardPlayer1);
+            handPlayer1.Insert(cardPlayer1, countMem);
+            countMem--;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            cardPlayer1 = 0;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            cardPlayer1 = 2;
-            numberPlayer++;
-            tableMem.Add(cardPlayer1);
-            Debug.Log(tableMem [0]);
+            cardPlayer1 = 1;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            cardPlayer1 = 3;
-            numberPlayer++;
-            tableMem.Add(cardPlayer1);
-            Debug.Log(tableMem [0]);
+            cardPlayer1 = 2;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            cardPlayer1 = 4;
-            numberPlayer++;
-            tableMem.Add(cardPlayer1);
-            Debug.Log(tableMem [0]);
+            cardPlayer1 = 3;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            cardPlayer1 = 5;
-            numberPlayer++;
-            tableMem.Add(cardPlayer1);
-            Debug.Log(tableMem [0]);
+            cardPlayer1 = 4;
+            PlayCard();
         }
     }
     void DrawCardPlayer2()
     {
+        void PlayCard()
+        {
+            numberPlayer++;
+            tableMem.Add(handPlayer2[cardPlayer2]);
+            Debug.Log(tableMem [1]);
+            handPlayer2.RemoveAt(cardPlayer2);
+            handPlayer2.Insert(cardPlayer2, countMem);
+            countMem--;
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            cardPlayer2 = 1;
-            numberPlayer++;
-            tableMem.Add(cardPlayer2);
-            Debug.Log(tableMem [1]);
+            cardPlayer2 = 0;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            cardPlayer2 = 2;
-            numberPlayer++;
-            tableMem.Add(cardPlayer2);
-            Debug.Log(tableMem [1]);
+            cardPlayer2 = 1;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            cardPlayer2 = 3;
-            numberPlayer++;
-            tableMem.Add(cardPlayer2);
-            Debug.Log(tableMem [1]);
+            cardPlayer2 = 2;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            cardPlayer2 = 4;
-            numberPlayer++;
-            tableMem.Add(cardPlayer2);
-            Debug.Log(tableMem [1]);
+            cardPlayer2 = 3;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            cardPlayer2 = 5;
-            numberPlayer++;
-            tableMem.Add(cardPlayer2);
-            Debug.Log(tableMem [1]);
+            cardPlayer2 = 4;
+            PlayCard();
         }
     }
     void DrawCardPlayer3()
     {
+        void PlayCard()
+        {
+            numberPlayer++;
+            tableMem.Add(handPlayer3[cardPlayer3]);
+            Debug.Log(tableMem [2]);
+            handPlayer3.RemoveAt(cardPlayer3);
+            handPlayer3.Insert(cardPlayer3, countMem);
+            countMem--;
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            cardPlayer3 = 1;
-            numberPlayer++;
-            tableMem.Add(cardPlayer3);
-            Debug.Log(tableMem [2]);
+            cardPlayer3 = 0;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            cardPlayer3 = 2;
-            numberPlayer++;
-            tableMem.Add(cardPlayer3);
-            Debug.Log(tableMem [2]);
+            cardPlayer3 = 1;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            cardPlayer3 = 3;
-            numberPlayer++;
-            tableMem.Add(cardPlayer3);
-            Debug.Log(tableMem [2]);
+            cardPlayer3 = 2;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            cardPlayer3 = 4;
-            numberPlayer++;
-            tableMem.Add(cardPlayer3);
-            Debug.Log(tableMem [2]);
+            cardPlayer3 = 3;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            cardPlayer3 = 5;
-            numberPlayer++;
-            tableMem.Add(cardPlayer3);
-            Debug.Log(tableMem [2]);
+            cardPlayer3 = 4;
+            PlayCard();
         }
     }
     void DrawCardPlayer4()
     {
+        void PlayCard()
+        {
+            numberPlayer++;
+            tableMem.Add(handPlayer4[cardPlayer4]);
+            Debug.Log(tableMem [3]);
+            handPlayer4.RemoveAt(cardPlayer4);
+            handPlayer4.Insert(cardPlayer4, countMem);
+            countMem--;
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            cardPlayer4 = 1;
-            numberPlayer++;
-            tableMem.Add(cardPlayer4);
-            Debug.Log(tableMem [3]);
+            cardPlayer4 = 0;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            cardPlayer4 = 2;
-            numberPlayer++;
-            tableMem.Add(cardPlayer4);
-            Debug.Log(tableMem [3]);
+            cardPlayer4 = 1;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            cardPlayer4 = 3;
-            numberPlayer++;
-            tableMem.Add(cardPlayer4);
-            Debug.Log(tableMem [3]);
+            cardPlayer4 = 2;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            cardPlayer4 = 4;
-            numberPlayer++;
-            tableMem.Add(cardPlayer4);
-            Debug.Log(tableMem [3]);
+            cardPlayer4 = 3;
+            PlayCard();
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            cardPlayer4 = 5;
-            numberPlayer++;
-            tableMem.Add(cardPlayer4);
-            Debug.Log(tableMem [3]);
+            cardPlayer4 = 4;
+            PlayCard();
         }
     }
 
@@ -336,13 +327,13 @@ public class Game : MonoBehaviour
 
     public void Start()
     {
+        CreateDeck();
+        CreateHandPlayers();
         //Debug.Log(string.Join(", ", listMem));*/
     }
 
     void Update ()
     {
-        CreateDeck();
-        CreateHandPlayers();
         switch(55 - numberPlayer) // Игроки выбирают свой мем
         {
             case 55:
