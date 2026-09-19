@@ -44,7 +44,7 @@ public class Game : MonoBehaviour
         }
         listMem.Shuffle(); // Метод для перемешивания значений в listMem
         Debug.Log(string.Join(", ", listMem)); //Вывод значений listMem в строку
-        for (int i = 0; i < 41; i++)
+        for (int i = 0; i < 40; i++)
         {
             listSituation.Add(i);
         }
@@ -90,6 +90,7 @@ public class Game : MonoBehaviour
         Debug.Log(string.Join(", ", handPlayer2));
         Debug.Log(string.Join(", ", handPlayer3));
         Debug.Log(string.Join(", ", handPlayer4));
+        Debug.Log(string.Join(", ", listMem));
     }
 
     // Выбор игроком карты мема
@@ -106,7 +107,10 @@ public class Game : MonoBehaviour
             tableMem.Add(handPlayer1[cardPlayer1]);
             Debug.Log(tableMem [0]);
             handPlayer1.RemoveAt(cardPlayer1);
-            handPlayer1.Insert(cardPlayer1, countMem);
+            handPlayer1.Add(listMem[countMem]);
+            listMem.RemoveAt(countMem);
+            Debug.Log(string.Join(", ", handPlayer1));
+            //Debug.Log(string.Join(", ", listMem));
             countMem--;
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -143,7 +147,9 @@ public class Game : MonoBehaviour
             tableMem.Add(handPlayer2[cardPlayer2]);
             Debug.Log(tableMem [1]);
             handPlayer2.RemoveAt(cardPlayer2);
-            handPlayer2.Insert(cardPlayer2, countMem);
+            handPlayer2.Add(listMem[countMem]);
+            listMem.RemoveAt(countMem);
+            Debug.Log(string.Join(", ", handPlayer2));
             countMem--;
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -180,7 +186,9 @@ public class Game : MonoBehaviour
             tableMem.Add(handPlayer3[cardPlayer3]);
             Debug.Log(tableMem [2]);
             handPlayer3.RemoveAt(cardPlayer3);
-            handPlayer3.Insert(cardPlayer3, countMem);
+            handPlayer3.Add(listMem[countMem]);
+            listMem.RemoveAt(countMem);
+            Debug.Log(string.Join(", ", handPlayer3));
             countMem--;
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -217,7 +225,10 @@ public class Game : MonoBehaviour
             tableMem.Add(handPlayer4[cardPlayer4]);
             Debug.Log(tableMem [3]);
             handPlayer4.RemoveAt(cardPlayer4);
-            handPlayer4.Insert(cardPlayer4, countMem);
+            handPlayer4.Add(listMem[countMem]);
+            listMem.RemoveAt(countMem);
+            Debug.Log(string.Join(", ", handPlayer4));
+            Debug.Log(string.Join(", ", listMem));
             countMem--;
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -258,16 +269,19 @@ public class Game : MonoBehaviour
         {
             scorePlayer2++;
             numberPlayer++;
+            Debug.Log("Балл игроку 2");
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             scorePlayer3++;
             numberPlayer++;
+            Debug.Log("Балл игроку 3");
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             scorePlayer4++;
             numberPlayer++;
+            Debug.Log("Балл игроку 4");
         }
     }
     void ChooseCardPlayer2()
@@ -276,16 +290,19 @@ public class Game : MonoBehaviour
         {
             scorePlayer1++;
             numberPlayer++;
+            Debug.Log("Балл игроку 1");
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             scorePlayer3++;
             numberPlayer++;
+            Debug.Log("Балл игроку 3");
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             scorePlayer4++;
             numberPlayer++;
+            Debug.Log("Балл игроку 4");
         }
     }
     void ChooseCardPlayer3()
@@ -294,16 +311,19 @@ public class Game : MonoBehaviour
         {
             scorePlayer1++;
             numberPlayer++;
+            Debug.Log("Балл игроку 1");
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             scorePlayer2++;
             numberPlayer++;
+            Debug.Log("Балл игроку 2");
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             scorePlayer4++;
             numberPlayer++;
+            Debug.Log("Балл игроку 4");
         }
     }
     void ChooseCardPlayer4()
@@ -312,16 +332,19 @@ public class Game : MonoBehaviour
         {
             scorePlayer1++;
             numberPlayer++;
+            Debug.Log("Балл игроку 1");
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             scorePlayer2++;
             numberPlayer++;
+            Debug.Log("Балл игроку 2");
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             scorePlayer3++;
             numberPlayer++;
+            Debug.Log("Балл игроку 3");
         }
     }
 
@@ -329,7 +352,6 @@ public class Game : MonoBehaviour
     {
         CreateDeck();
         CreateHandPlayers();
-        //Debug.Log(string.Join(", ", listMem));*/
     }
 
     void Update ()
@@ -360,6 +382,7 @@ public class Game : MonoBehaviour
         {
             numberPlayer = 10;
             Debug.Log(string.Join(", ", tableMem));
+            tableMem.Clear();
         }
 
         switch(55 - numberPlayer) //Игроки выбирают чужой мем
